@@ -27,6 +27,11 @@ Every directory contains own **train.dat**, **train.ans** and **test.dat** files
 ```
 gnuplot -p -e 'plot "plot.txt" with lines'
 ```
+#### <span style="color:red">Bonus task</span>: grid splines
+Run it and click on the window to see splines:
+```
+python3 spline_map.py
+```
 
 ## H4: Heat and waves
 *In development.*
