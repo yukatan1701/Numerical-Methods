@@ -42,7 +42,7 @@ Run it and click on the window to see splines:
 ```
 python3 spline_map.py
 ```
-![](images/spline-bonus.png)
+![](images/splines-bonus.png)
 
 ## H4: Heat and waves
 *In development.*
