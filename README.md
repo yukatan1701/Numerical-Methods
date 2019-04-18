@@ -7,6 +7,15 @@ python3 sweep-full.py
 ```
 Scripts generate matrices with random values and draw graphs of time versus size automatically.
 
+![Cholesky]
+(https://github.com/yukatan1701/Numerical-Methods/blob/master/images/cholesky.png)
+
+![Gauss]
+(https://github.com/yukatan1701/Numerical-Methods/blob/master/images/gauss.png)
+
+![Sweep]
+(https://github.com/yukatan1701/Numerical-Methods/blob/master/images/sweep.png)
+
 ## H2: Jacobi and Seidel
 Running:
 ```
@@ -14,6 +23,12 @@ python3 jacobi.py
 python3 seidel.py
 ```
 These scripts work similarly to the previous ones.
+
+![Jacobi]
+(https://github.com/yukatan1701/Numerical-Methods/blob/master/images/jacobi.png)
+
+![Seidel]
+(https://github.com/yukatan1701/Numerical-Methods/blob/master/images/seidel.png)
 
 ## H3: Linear interpolation, splines and Lagrange
 Running:
@@ -32,6 +47,8 @@ Run it and click on the window to see splines:
 ```
 python3 spline_map.py
 ```
+![Spline bonus]
+(https://github.com/yukatan1701/Numerical-Methods/blob/master/images/spline-bonus.png)
 
 ## H4: Heat and waves
 *In development.*
