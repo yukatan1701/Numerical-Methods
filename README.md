@@ -7,13 +7,13 @@ python3 sweep-full.py
 ```
 Scripts generate matrices with random values and draw graphs of time versus size automatically.
 
-![Cholesky]
+![]
 (images/cholesky.png)
 
-![Gauss]
+![]
 (images/gauss.png)
 
-![Sweep]
+![]
 (images/sweep.png)
 
 ## H2: Jacobi and Seidel
@@ -24,10 +24,10 @@ python3 seidel.py
 ```
 These scripts work similarly to the previous ones.
 
-![Jacobi]
+![]
 (images/jacobi.png)
 
-![Seidel]
+![]
 (images/seidel.png)
 
 ## H3: Linear interpolation, splines and Lagrange
@@ -47,7 +47,7 @@ Run it and click on the window to see splines:
 ```
 python3 spline_map.py
 ```
-![Spline bonus]
+![]
 (images/spline-bonus.png)
 
 ## H4: Heat and waves
