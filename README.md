@@ -26,17 +26,21 @@ These scripts work similarly to the previous ones.
 ![](images/seidel.png)
 
 ## H3: Linear interpolation, splines and Lagrange
-Running:
+Every directory contains own **train.dat**, **train.ans** and **test.dat** files. Scripts generate the 4-th **test.ans** file. <br><br>
+*Note*: every script can demonstrate you the result if you want. Use `-p` flag to see the plot. **Test points** are the x values (**test.dat** file) and the y values calculated for them (**test.ans** file).<br><br>
+Examples:
 ```
-python3 linear.py
-python3 lagrange.py
-python3 spline.py
+python3 linear.py -p
 ```
-Every directory contains own **train.dat**, **train.ans** and **test.dat** files. Scripts generate the 4-th **test.ans** file. <br>
-*Note*: **lagrange.py** and **spline.py** also generate the **plot.txt** file to demonstrate the result. Use **gnuplot** to show it:
+![](images/linear.png)
 ```
-gnuplot -p -e 'plot "plot.txt" with lines'
+python3 lagrange.py -p
 ```
+![](images/lagrange.png)
+```
+python3 spline.py -p
+```
+![](images/spline.png)
 #### <span style="color:red">Bonus task</span>: grid splines
 Run it and click on the window to see splines:
 ```
