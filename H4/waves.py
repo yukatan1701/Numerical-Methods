@@ -13,8 +13,6 @@ def f():
 			new_table[i][j] = 2 * table[i][j] - subtable[i][j] + coef * \
 				(table[i - 1][j] + table[i + 1][j] + \
 				table[i][j - 1] + table[i][j + 1] - 4 * table[i][j])
-			#if (new_table[i][j] < 1):
-			#	new_table[i][j] = 0.0
 	subtable = table
 	table = new_table
 
@@ -31,13 +29,13 @@ class Window(QMainWindow):
 		layout.addWidget(label)
 		self.points = QPolygon()
 		wid.setLayout(layout)
-		self.title = "Splines"
+		self.title = "Waves"
 		self.top = 0
 		self.left = 0
 		self.width = n
 		self.height = n
 		self.timer = QTimer(self)
-		self.timer.setInterval(100)
+		self.timer.setInterval(10)
 		self.timer.timeout.connect(self.blink)
 		self.setWindowTitle(self.title)
 		self.setGeometry(self.top, self.left, self.width, self.height)
@@ -70,8 +68,8 @@ class Window(QMainWindow):
 
 n = 100
 
-c = 0.25
-tau = 0.5
+c = 0.15
+tau = 2.0
 h = 1.0
 
 table = np.zeros((n, n))

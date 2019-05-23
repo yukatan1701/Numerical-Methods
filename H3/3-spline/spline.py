@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import sys
 
 def readData(filename):
 	f = open(filename, 'r')
@@ -54,13 +56,6 @@ n = len(x)
 
 A, B, C, D = generateSpline(x, y)
 
-z = 0.0
-plot = open('plot.txt', 'w')
-while z < (test_x[-1]):
-	plot.write(str(z) + ' ' + str(P(z)) + '\n')
-	z += 0.01
-plot.close()
-
 for z in test_x:
 	test_y.append(P(z))
 
@@ -68,3 +63,21 @@ out = open('test.ans', 'w')
 for ans in test_y:
 	out.write(str(ans) + '\n')	
 out.close()
+
+if len(sys.argv) == 1 or sys.argv[1] != '-p':
+	quit()
+
+plot_x, plot_y = [], []
+z = 0.0
+while z < (test_x[-1]):
+	plot_x.append(z)
+	plot_y.append(P(z)) 
+	z += 0.1
+	
+plt.plot(plot_x, plot_y, label='Spline interpolation')
+plt.plot(test_x, test_y, 'ro', label='Test points')
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend(loc = "upper left")
+plt.savefig('spline.png', bbox_inches='tight')
+plt.show()

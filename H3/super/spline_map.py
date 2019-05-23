@@ -99,9 +99,10 @@ class Window(QMainWindow):
 		
 	def paintEvent(self, event):
 		painter = QPainter(self)
-		painter.setPen(QPen(Qt.blue, 2, Qt.SolidLine))
-		painter.setRenderHint(QPainter.Antialiasing)
+		painter.setPen(QPen(Qt.blue, 2, Qt.SolidLine, Qt.RoundCap))
+		painter.setBrush(QBrush(Qt.white, Qt.SolidPattern))
 		count = self.points.count()
+		painter.setRenderHint(QPainter.Antialiasing)
 		if count > 1:
 			X, Y, T = self.generateParam()
 			begin = int(T[0])
@@ -114,7 +115,7 @@ class Window(QMainWindow):
 				else:
 					painter.drawPoint(p)
 				pts.append(p)
-		painter.setPen(QPen(Qt.darkBlue, 3, Qt.SolidLine))
+		painter.setPen(QPen(Qt.darkBlue, 2, Qt.SolidLine, Qt.RoundCap))
 		for i in range(count):
 			painter.drawEllipse(self.points.point(i), 3, 3)
 			if i > 0:
