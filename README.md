@@ -57,8 +57,9 @@ Example:
 ```
 python3 heat.py 500
 ```
-The result with default value `force = 2000`:
+The result with default value `force = 2000`:<br>
 ![](images/heat.png)
+<br>
 #### Waves
 The script *wave.py* demonstrates the transfer equation visually. Click on the screen to make a wave! <br>
 **Note 2**: use the command line arguments to adjust the pressing force and change the brightness of waves. The default pressing force is 400 (variable `force`).<br><br>
@@ -66,6 +67,6 @@ Example:
 ```
 python3 waves.py 500
 ```
-The result with default value `force = 400`:
+The result with default value `force = 400`:<br>
 ![](images/waves.png)
 
