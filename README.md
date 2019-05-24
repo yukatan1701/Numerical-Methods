@@ -1,9 +1,9 @@
 ## H1: Cholesky, Gauss and sweep
 Running:
 ```
-python3 cholesky-full.py
-python3 gauss-full.py
-python3 sweep-full.py
+python3 cholesky.py
+python3 gauss.py
+python3 sweep.py
 ```
 Scripts generate matrices with random values and draw graphs of time versus size automatically.
 
