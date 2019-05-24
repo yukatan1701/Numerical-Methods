@@ -26,8 +26,8 @@ These scripts work similarly to the previous ones.
 ![](images/seidel.png)
 
 ## H3: Linear interpolation, splines and Lagrange
-Every directory contains own **train.dat**, **train.ans** and **test.dat** files. Scripts generate the 4-th **test.ans** file. <br><br>
-*Note*: every script can demonstrate you the result if you want. Use `-p` flag to see the plot. **Test points** are the x values (**test.dat** file) and the y values calculated for them (**test.ans** file).<br><br>
+Every directory contains own *train.dat*, *train.ans* and *test.dat* files. Scripts generate the 4-th *test.ans* file. <br><br>
+**Note**: every script can demonstrate you the result if you want. Use `-p` flag to see the plot. *Test points* are the x values (*test.dat* file) and the y values calculated for them (*test.ans* file).<br><br>
 Examples:
 ```
 python3 linear.py -p
@@ -61,7 +61,7 @@ The result with default value `force = 2000`:<br>
 ![](images/heat.png)
 <br>
 #### Waves
-The script *wave.py* demonstrates the transfer equation visually. Click on the screen to make a wave! <br>
+The script *waves.py* demonstrates the transfer equation visually. Click on the screen to make a wave! <br>
 **Note 2**: use the command line arguments to adjust the pressing force and change the brightness of waves. The default pressing force is 400 (variable `force`).<br><br>
 Example:
 ```
