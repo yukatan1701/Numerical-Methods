@@ -49,4 +49,23 @@ python3 spline_map.py
 ![](images/splines-bonus.png)
 
 ## H4: Heat and waves
-*In development.*
+#### Heat (diffusion)
+The script *heat.py* demonstrates the heat equation visually. Click the mouse button to "heat up" the plate on the screen. It will gradually cool.<br>
+**Note 1**: since a long press of the mouse is difficult to implement technically using pure PyQt5 only, it is made artificially. During 10 update cycles (variable `heat_duration`), the program will generate the effect of external forces independently.<br>
+**Note 2**: use the command line arguments to adjust the pressing force and change the size of the spot. The default pressing force is 2000 (variable `force`).<br><br>
+Example:
+```
+python3 heat.py 500
+```
+The result with default value `force = 2000`:
+![](images/heat.png)
+#### Waves
+The script *wave.py* demonstrates the transfer equation visually. Click on the screen to make a wave! <br>
+**Note 2**: use the command line arguments to adjust the pressing force and change the brightness of waves. The default pressing force is 400 (variable `force`).<br><br>
+Example:
+```
+python3 waves.py 500
+```
+The result with default value `force = 400`:
+![](images/waves.png)
+

@@ -34,8 +34,6 @@ out.close()
 if len(sys.argv) == 1 or sys.argv[1] != '-p':
 	quit()
 
-if x[0] != 0:
-	x = [0] + x
 plt.plot(x, y, label='Linear interpolation')
 plt.plot(test_x, test_y, 'ro', label='Test points')
 plt.xlabel("x")
