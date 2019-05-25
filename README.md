@@ -95,14 +95,14 @@ Comparison of the speed of the self-writing function and the library function:<b
 
 ## H2: Iterative methods for solving a system of linear equations
 **Problem**: using iterative solution methods, solve a system of linear equations.<br>
-**Note**: all scripts generate matrices with random values and draw graphs of time versus size automatically.
+**Note**: all scripts generate matrices with random values and draw graphs of time versus size automatically.<br><br>
 The canonical form of the approximate solution of equation ![equation](https://latex.codecogs.com/gif.latex?Ax%3Df):<br>
 ![equation](https://latex.codecogs.com/gif.latex?B%5Cfrac%7Bx%5E%7Bk&plus;1%7D-x%5Ek%7D%7B%5Ctau%7D&plus;Ax%5Ek%3Df)<br>
 where ![equation](https://latex.codecogs.com/gif.latex?B) is a non-degenerate method dependent matrix, ![equation](https://latex.codecogs.com/gif.latex?%5Ctau) is an iteration parameter. Choosing arbitrarily these quantities, we obtain different methods of solution. ![equation](https://latex.codecogs.com/gif.latex?x%5Ek) converges to a solution.<br>
-Let ![equation](https://latex.codecogs.com/gif.latex?A%3DL&plus;D&plus;U), where ![equation](https://latex.codecogs.com/gif.latex?L) is a strictly lower triangular matrix, ![equation](https://latex.codecogs.com/gif.latex?D) is diagonal, ![equation](https://latex.codecogs.com/gif.latex?L) is strictly upper triangular.
+Let ![equation](https://latex.codecogs.com/gif.latex?A%3DL&plus;D&plus;U), where ![equation](https://latex.codecogs.com/gif.latex?L) is a strictly lower triangular matrix, ![equation](https://latex.codecogs.com/gif.latex?D) is diagonal, ![equation](https://latex.codecogs.com/gif.latex?U) is strictly upper triangular.
 ### Solution 1: Seidel method
-**Idea**: ![equation](https://latex.codecogs.com/gif.latex?%5Ctau%3D1). Result: <br>
-![equation](https://latex.codecogs.com/gif.latex?%28L&plus;D%29x%5E%7Bk&plus;1%7D&plus;Ux%5Ek%3Df)<br>
+**Idea**: ![equation](https://latex.codecogs.com/gif.latex?%5Ctau%3D1).<br>
+**Result**: ![equation](https://latex.codecogs.com/gif.latex?%28L&plus;D%29x%5E%7Bk&plus;1%7D&plus;Ux%5Ek%3Df)<br>
 **Code:**
 ```python
 # get new approximate answer
@@ -137,8 +137,8 @@ Comparison of the speed of the self-writing function and the library function:<b
 ![](images/seidel.png)
 
 ### Solution 2: Jacobi method
-**Idea**: ![equation](https://latex.codecogs.com/gif.latex?B%3DD). Result: <br>
-![equation](https://latex.codecogs.com/gif.latex?Dx%5E%7Bk&plus;1%7D&plus;%28L&plus;U%29x%5Ek%3Df)<br>
+**Idea**: ![equation](https://latex.codecogs.com/gif.latex?B%3DD).<br>
+Result: ![equation](https://latex.codecogs.com/gif.latex?Dx%5E%7Bk&plus;1%7D&plus;%28L&plus;U%29x%5Ek%3Df)<br>
 **Code:**
 ```python
 # get new approximate answer
