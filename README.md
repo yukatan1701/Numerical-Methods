@@ -61,6 +61,7 @@ The result with default value `force = 2000`:<br>
 ![](images/heat.png)
 <br>
 #### Waves
+![equation](https://latex.codecogs.com/gif.latex?%5Clarge%20%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20t%5E2%7D%20-%20c%5E2%5Cfrac%7B%5Cpartial%5E2%20u%7D%7B%5Cpartial%20x%5E2%7D%20%3D%20f)
 The script *waves.py* demonstrates the transfer equation visually. Click on the screen to make a wave! <br>
 **Note 2**: use the command line arguments to adjust the pressing force and change the brightness of waves. The default pressing force is 400 (variable `force`).<br><br>
 Example:
