@@ -22,7 +22,7 @@ def gauss(a, f):
 			a[i, k + 1:] -= a[i][k] * a[k, k + 1:]
 			f[i] -= a[i][k] * f[k]
 		a[k + 1:, k] = np.zeros(n - k - 1)
-	x = np.array([float(0)] * n)
+	x = np.zeros(n)
 	for i in range(n - 1, -1, -1):
 		x[i] = f[i]
 		for j in range(i + 1, n):

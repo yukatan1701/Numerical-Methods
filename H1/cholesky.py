@@ -28,7 +28,7 @@ def get_s(a, n):
 	return s
 
 def l_reverse(a, f):
-	x = np.array([float(0)] * n)
+	x = np.zeros(n)
 	for i in range(n):
 		x[i] = f[i]
 		for j in range(0, i):
@@ -37,7 +37,7 @@ def l_reverse(a, f):
 	return x
 
 def u_reverse(a, f):
-	x = np.array([float(0)] * n)
+	x = np.zeros(n)
 	for i in range(n - 1, -1, -1):
 		x[i] = f[i]
 		for j in range(i + 1, n):

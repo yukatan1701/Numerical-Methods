@@ -1,17 +1,97 @@
-## H1: Cholesky, Gauss and sweep
+## H1: Exact methods for solving a system of linear equations
+**Problem**: using exact solution methods, solve a system of linear equations.<br>
+**Note**: all scripts generate matrices with random values and draw graphs of time versus size automatically.
+### Solution 1: Gaussian elimination
+Gaussian elimination is performed in two steps: a forward elimination and a back substitution.<br>
+**Step 1**. By elementary row operations, bring the matrix to the upper triangular form. First step reduces a given system to *row echelon* form, from which one can tell whether there are no solutions, a unique solution, or infinitely many solutions.<br>
+**Step 2**. Continue to use row operations until the solution is found; in other words, second step puts the matrix into *reduced row echelon* form.<br>
+**Code**:
+```python
+# A is a square matrix;
+# f is a vector of numbers on the right side of equalities;
+# x is a solution vector.
+def gauss(A, f):
+	for k in range(n):
+		A[k, k + 1:] /= A[k, k]
+		f[k] /= A[k][k]
+		for i in range(k + 1, n):
+			A[i, k + 1:] -= A[i][k] * A[k, k + 1:]
+			f[i] -= A[i][k] * f[k]
+		A[k + 1:, k] = np.zeros(n - k - 1)
+	x = np.zeros(n)
+	for i in range(n - 1, -1, -1):
+		x[i] = f[i]
+		for j in range(i + 1, n):
+			x[i] -= A[i][j] * x[j]
+	return x
+```
+Running:
+```
+python3 gauss.py
+```
+Comparison of the speed of the self-writing function and the library function:<br>
+![](images/gauss.png)
+### Solution 2: tridiagonal matrix algorithm (Thomas algorithm, sweep)
+This algorithm is a simplified form of Gaussian elimination that can be used to solve tridiagonal systems of equations. A tridiagonal system for *n* unknowns may be written as<br>
+![equation](https://wikimedia.org/api/rest_v1/media/math/render/svg/2960afa763dced3c58f7ebd67c60b7a9efdc1e1d)<br>
+where ![equation](https://wikimedia.org/api/rest_v1/media/math/render/svg/aebbedb9930c85592194b452369f51249f307871) and ![equation](https://wikimedia.org/api/rest_v1/media/math/render/svg/f65f76a2897d21124e5471dad54b1af0ded54eee).<br>
+![equation](https://wikimedia.org/api/rest_v1/media/math/render/svg/66abee37b2bc74f82fb79e7e1f0b5475be9f9632)
+<br>
+**Step 1.** Find the coefficients through which all ![equation](https://latex.codecogs.com/gif.latex?x_i) are expressed linearly through each other:<br>
+![equation](https://latex.codecogs.com/gif.latex?x_%7Bi-1%7D%3D%5Calpha_i%20x_i&plus;%5Cbeta_i%2C%20i%3D1%2C%5Cldots%2Cn&plus;1)<br>
+After some calculations we get the formulas:<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20%5Calpha_1%3D0%2C%20%5Cbeta_1%3D0%2C%20%5C%5C%20%26%20%5Calpha_%7Bi&plus;1%7D%3D%20%5Cfrac%7B-c_i%7D%7Ba_i%5Calpha_i&plus;b_i%7D%2C%20i%20%3D%201%2C%5Cldots%2Cn%20%5C%5C%20%26%20%5Cbeta_%7Bi&plus;1%7D%3D%20%5Cfrac%7Bd_i-a_i%5Cbeta_i%7D%7Ba_i%5Calpha_i&plus;b_i%7D%20%5Cend%7Bcases%7D)<br>
+**Step 2.** Use back substitution to find an answer:<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20x_%7Bn&plus;1%7D%3D0%20%5C%5C%20%26%20x_i%3D%20%5Calpha_%7Bi&plus;1%7Dx_%7Bi&plus;1%7D&plus;%5Cbeta_%7Bi&plus;1%7D%2C%20i%20%3D%20%5Coverline%7Bn%2C1%7D%20%5Cend%7Bcases%7D)<br>
+**Code:**<br>
+```python
+def sweep(a, b, c, d):
+	alpha = np.zeros(n + 1)
+	beta = np.zeros(n + 1)
+	for i in range(n):
+		k = a[i] * alpha[i] + b[i]
+		alpha[i + 1] = -c[i] / k
+		beta[i + 1] = (d[i] - a[i] * beta[i]) / k
+	x = np.zeros(n)
+	x[n - 1] = beta[n]
+	for i in range(n - 2, -1, -1):
+		x[i] = alpha[i + 1] * x[i + 1] + beta[i + 1]
+	return x
+```
+Running:
+```
+python3 sweep.py
+```
+Comparison of the speed of the self-writing function and the library function:<br>
+![](images/sweep.png)
+### Solution 3: Cholesky decomposition
+The solution of ![equation](https://latex.codecogs.com/gif.latex?Ax%3Df) is reduced to the solution ![equation](https://latex.codecogs.com/gif.latex?S%5ETy%3Df) and ![equation](https://latex.codecogs.com/gif.latex?Sx%3Dy).<br>
+**Step 1**. Matrix ![equation](https://latex.codecogs.com/gif.latex?S) is first filled with zeros, and then filled with values and becomes upper triangular through the formula:<br>
+![equation](https://latex.codecogs.com/gif.latex?s_%7B11%7D%3D%5Csqrt%7Ba_%7B11%7D%7D%2C%20s_%7B1j%7D%3D%5Cfrac%7Ba_%7B1j%7D%7D%7Bs_%7B11%7D%7D)<br>
+![equation](https://latex.codecogs.com/gif.latex?s_%7Bii%7D%3D%5Csqrt%7Ba_%7Bii%7D-%5Csum_%7Bk%3D1%7D%5E%7Bi-1%7Ds_%7Bki%7D%5E2%7D%2C%5C%3Bs_%7Bij%7D%3D%5Cfrac%7Ba_%7Bij%7D-%5Csum%5Climits_%7Bk%3D1%7D%5E%7Bi-1%7Ds_%7Bki%7D%5Ccdot%20s_%7Bkj%7D%7D%7Bs_%7Bii%7D%7D%2C%5C%3Bj%20%3E%20i)<br>
+**Step 2**. Then two systems, given at the beginning, are solved using back substitution. <br>
+**Code (calculating matrix S):**<br>
+```python
+def get_s(a, n):
+	s = np.zeros((n, n))
+	for i in range(n):
+		sq_sum = 0.0
+		for k in range(i):
+			sq_sum += s[k, i] ** 2
+		s[i, i] = (a[i, i] - sq_sum) ** 0.5
+		for j in range(i + 1, n):
+			s_sum = 0.0
+			for k in range(i):
+				s_sum += s[k, i] * s[k, j]
+			s[i, j] = (a[i, j] - s_sum) / s[i, i]
+	return s
+```
 Running:
 ```
 python3 cholesky.py
-python3 gauss.py
-python3 sweep.py
 ```
-Scripts generate matrices with random values and draw graphs of time versus size automatically.
-
+Comparison of the speed of the self-writing function and the library function:<br>
 ![](images/cholesky.png)
-
-![](images/gauss.png)
-
-![](images/sweep.png)
 
 ## H2: Jacobi and Seidel
 Running:
@@ -72,7 +152,7 @@ The result with default value `force = 2000`:<br>
 **Solution**: we will calculate the values for the matrix of size ![equation](https://latex.codecogs.com/gif.latex?n%5Ctimes%20n) using numerical methods. It is necessary after each update cycle to recalculate the values in all cells according to the formula (we will use 3 layers to calculate; upper index is a layer):<br>
 ![equation](https://latex.codecogs.com/gif.latex?y_%7Bij%7D%5E2%20%3D%20y_%7Bij%7D%5E1%20-%20y_%7Bij%7D%5E0%20&plus;%20%5Cleft%20%28%20%5Cfrac%7B%5Ctau%20C%7D%7Bh%7D%20%5Cright%20%29%5E2%20%28y_%7Bi-1%2Cj%7D%5E1&plus;y_%7Bi&plus;1%2Cj%7D%5E1&plus;y_%7Bi%2Cj-1%7D%5E1&plus;y_%7Bi%2Cj&plus;1%7D%5E1-4y_%7Bi%2Cj%7D%5E1%29&plus;%5Ctau%5E2%20f_%7Bij%7D)<br>
 where the coefficients ![equation](https://latex.codecogs.com/gif.latex?%5Ctau%2C%20h%2C%20C) satisfy the stability (Courant) condition:<br>
-![equation](https://latex.codecogs.com/gif.latex?%5Ctau%20%3C%20%5Cfrac%7Bh%7D%7B2c%7D)<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Ctau%20%3C%20%5Cfrac%7Bh%7D%7B2C%7D)<br>
 The script *waves.py* demonstrates the transport equation visually. Click on the screen to make a wave! <br>
 **Note**: use the command line arguments to adjust the pressing force and change the brightness of waves. The default pressing force is 400 (variable `force`).<br><br>
 Example:
