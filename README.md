@@ -11,19 +11,19 @@ Gaussian elimination is performed in two steps: a forward elimination and a back
 # f is a vector of numbers on the right side of equalities;
 # x is a solution vector.
 def gauss(A, f):
-	for k in range(n):
-		A[k, k + 1:] /= A[k, k]
-		f[k] /= A[k][k]
-		for i in range(k + 1, n):
-			A[i, k + 1:] -= A[i][k] * A[k, k + 1:]
-			f[i] -= A[i][k] * f[k]
-		A[k + 1:, k] = np.zeros(n - k - 1)
-	x = np.zeros(n)
-	for i in range(n - 1, -1, -1):
-		x[i] = f[i]
-		for j in range(i + 1, n):
-			x[i] -= A[i][j] * x[j]
-	return x
+    for k in range(n):
+        A[k, k + 1:] /= A[k, k]
+        f[k] /= A[k][k]
+        for i in range(k + 1, n):
+            A[i, k + 1:] -= A[i][k] * A[k, k + 1:]
+            f[i] -= A[i][k] * f[k]
+        A[k + 1:, k] = np.zeros(n - k - 1)
+    x = np.zeros(n)
+    for i in range(n - 1, -1, -1):
+        x[i] = f[i]
+        for j in range(i + 1, n):
+            x[i] -= A[i][j] * x[j]
+    return x
 ```
 Running:
 ```
@@ -46,17 +46,17 @@ After some calculations we get the formulas:<br>
 **Code:**<br>
 ```python
 def sweep(a, b, c, d):
-	alpha = np.zeros(n + 1)
-	beta = np.zeros(n + 1)
-	for i in range(n):
-		k = a[i] * alpha[i] + b[i]
-		alpha[i + 1] = -c[i] / k
-		beta[i + 1] = (d[i] - a[i] * beta[i]) / k
-	x = np.zeros(n)
-	x[n - 1] = beta[n]
-	for i in range(n - 2, -1, -1):
-		x[i] = alpha[i + 1] * x[i + 1] + beta[i + 1]
-	return x
+    alpha = np.zeros(n + 1)
+    beta = np.zeros(n + 1)
+    for i in range(n):
+        k = a[i] * alpha[i] + b[i]
+        alpha[i + 1] = -c[i] / k
+        beta[i + 1] = (d[i] - a[i] * beta[i]) / k
+    x = np.zeros(n)
+    x[n - 1] = beta[n]
+    for i in range(n - 2, -1, -1):
+        x[i] = alpha[i + 1] * x[i + 1] + beta[i + 1]
+    return x
 ```
 Running:
 ```
@@ -73,18 +73,18 @@ The solution of ![equation](https://latex.codecogs.com/gif.latex?Ax%3Df) is redu
 **Code (calculating matrix S):**<br>
 ```python
 def get_s(a, n):
-	s = np.zeros((n, n))
-	for i in range(n):
-		sq_sum = 0.0
-		for k in range(i):
-			sq_sum += s[k, i] ** 2
-		s[i, i] = (a[i, i] - sq_sum) ** 0.5
-		for j in range(i + 1, n):
-			s_sum = 0.0
-			for k in range(i):
-				s_sum += s[k, i] * s[k, j]
-			s[i, j] = (a[i, j] - s_sum) / s[i, i]
-	return s
+    s = np.zeros((n, n))
+    for i in range(n):
+        sq_sum = 0.0
+        for k in range(i):
+            sq_sum += s[k, i] ** 2
+        s[i, i] = (a[i, i] - sq_sum) ** 0.5
+        for j in range(i + 1, n):
+            s_sum = 0.0
+            for k in range(i):
+                s_sum += s[k, i] * s[k, j]
+            s[i, j] = (a[i, j] - s_sum) / s[i, i]
+    return s
 ```
 Running:
 ```
@@ -138,7 +138,7 @@ Comparison of the speed of the self-writing function and the library function:<b
 
 ### Solution 2: Jacobi method
 **Idea**: ![equation](https://latex.codecogs.com/gif.latex?B%3DD).<br>
-Result: ![equation](https://latex.codecogs.com/gif.latex?Dx%5E%7Bk&plus;1%7D&plus;%28L&plus;U%29x%5Ek%3Df)<br>
+**Result**: ![equation](https://latex.codecogs.com/gif.latex?Dx%5E%7Bk&plus;1%7D&plus;%28L&plus;U%29x%5Ek%3Df)<br>
 **Code:**
 ```python
 # get new approximate answer
