@@ -5,7 +5,7 @@ import numpy.linalg as lg
 import scipy.linalg as sla
 import matplotlib.pyplot as plt
 
-def generate_matrix(n):
+def generate_matrix():
     np.random.seed(n)
     random.seed(n)
     a = np.random.rand(n, n)
@@ -20,7 +20,7 @@ def generate_matrix(n):
 def diff(x1, x2):
     return lg.norm(x1 - x2)
 
-def seidel(a, f, x, n):
+def seidel(a, f, x):
     xnew = np.zeros(n)
     for i in range(n):
         s = 0
@@ -31,12 +31,12 @@ def seidel(a, f, x, n):
         xnew[i] = (f[i] - s) / a[i][i]
     return xnew
 
-def seidel_solve(a, f, n):
+def seidel_solve(a, f):
     eps = 0.000001
     xnew = np.zeros(n)
     while True:
         x = xnew
-        xnew = seidel(a, f, x, n)
+        xnew = seidel(a, f, x)
         if diff(x, xnew) <= eps:
             break
     return xnew
@@ -45,13 +45,13 @@ size = list(range(100, 401, 50))
 y_solve, y_seidel = [0], [0]
 print("Size\tLibrary time\tSeidel time")
 for n in size:
-	a, f = generate_matrix(n)
+	a, f = generate_matrix()
 	t0 = time.time()
 	x1 = sla.solve(a, f)
 	t1 = time.time() - t0
 
 	t0 = time.time()
-	x2 = seidel_solve(a, f, n)
+	x2 = seidel_solve(a, f)
 	t2 = time.time() - t0
 	#print("Size: ", n, "| Time: %.3f" % t1, "%.3f" % t2)
 	print(n, "\t%.4f" % t1, "\t\t%.4f" % t2, sep = '')

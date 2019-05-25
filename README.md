@@ -93,17 +93,83 @@ python3 cholesky.py
 Comparison of the speed of the self-writing function and the library function:<br>
 ![](images/cholesky.png)
 
-## H2: Jacobi and Seidel
+## H2: Iterative methods for solving a system of linear equations
+**Problem**: using iterative solution methods, solve a system of linear equations.<br>
+**Note**: all scripts generate matrices with random values and draw graphs of time versus size automatically.
+The canonical form of the approximate solution of equation ![equation](https://latex.codecogs.com/gif.latex?Ax%3Df):<br>
+![equation](https://latex.codecogs.com/gif.latex?B%5Cfrac%7Bx%5E%7Bk&plus;1%7D-x%5Ek%7D%7B%5Ctau%7D&plus;Ax%5Ek%3Df)<br>
+where ![equation](https://latex.codecogs.com/gif.latex?B) is a non-degenerate method dependent matrix, ![equation](https://latex.codecogs.com/gif.latex?%5Ctau) is an iteration parameter. Choosing arbitrarily these quantities, we obtain different methods of solution. ![equation](https://latex.codecogs.com/gif.latex?x%5Ek) converges to a solution.<br>
+Let ![equation](https://latex.codecogs.com/gif.latex?A%3DL&plus;D&plus;U), where ![equation](https://latex.codecogs.com/gif.latex?L) is a strictly lower triangular matrix, ![equation](https://latex.codecogs.com/gif.latex?D) is diagonal, ![equation](https://latex.codecogs.com/gif.latex?L) is strictly upper triangular.
+### Solution 1: Seidel method
+**Idea**: ![equation](https://latex.codecogs.com/gif.latex?%5Ctau%3D1). Result: <br>
+![equation](https://latex.codecogs.com/gif.latex?%28L&plus;D%29x%5E%7Bk&plus;1%7D&plus;Ux%5Ek%3Df)<br>
+**Code:**
+```python
+# get new approximate answer
+def seidel(a, f, x):
+    xnew = np.zeros(n)
+    for i in range(n):
+        s = 0
+        for j in range(i - 1):
+            s = s + a[i][j] * xnew[j]
+        for j in range(i + 1, n):
+            s = s + a[i][j] * x[j]
+        xnew[i] = (f[i] - s) / a[i][i]
+    return xnew
+
+# choose suitable answer
+def seidel_solve(a, f):
+    eps = 0.000001
+    xnew = np.zeros(n)
+    while True:
+        x = xnew
+        xnew = seidel(a, f, x)
+        if diff(x, xnew) <= eps:
+            break
+    return xnew
+
+```
+Running:
+```
+python3 seidel.py
+```
+Comparison of the speed of the self-writing function and the library function:<br>
+![](images/seidel.png)
+
+### Solution 2: Jacobi method
+**Idea**: ![equation](https://latex.codecogs.com/gif.latex?B%3DD). Result: <br>
+![equation](https://latex.codecogs.com/gif.latex?Dx%5E%7Bk&plus;1%7D&plus;%28L&plus;U%29x%5Ek%3Df)<br>
+**Code:**
+```python
+# get new approximate answer
+def jacobi(a, f, x):
+    xnew = np.zeros(n)
+    for i in range(n):
+        s = 0
+        for j in range(i - 1):
+            s = s + a[i][j] * x[j]
+        for j in range(i + 1, n):
+            s = s + a[i][j] * x[j]
+        xnew[i] = (f[i] - s) / a[i][i]
+    return xnew
+
+# choose suitable answer
+def jacobi_solve(a, f):
+    eps = 0.000001
+    xnew = np.zeros(n)
+    while True:
+        x = xnew
+        xnew = jacobi(a, f, x)
+        if diff(x, xnew) <= eps:
+            break
+    return xnew
+```
 Running:
 ```
 python3 jacobi.py
-python3 seidel.py
 ```
-These scripts work similarly to the previous ones.
-
+Comparison of the speed of the self-writing function and the library function:<br>
 ![](images/jacobi.png)
-
-![](images/seidel.png)
 
 ## H3: Linear interpolation, splines and Lagrange
 Every directory contains own *train.dat*, *train.ans* and *test.dat* files. Scripts generate the 4-th *test.ans* file. <br><br>
