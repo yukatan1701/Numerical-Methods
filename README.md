@@ -222,7 +222,7 @@ Add a dummy element:<br>
 ![equation](https://latex.codecogs.com/gif.latex?B_n%3D0)<br>
 Express *A* through *B*:<br>
 ![equation](https://latex.codecogs.com/gif.latex?A_i%3D%5Cfrac%7BB_%7Bi&plus;1%7D-B_%7Bi%7D%7D%7B3h_i%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D)<br>
-Substitute *A* in the remaining equations:
+Substitute *A* in the remaining equations:<br>
 ![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20%28B_%7Bi&plus;1%7D-B_i%29%5Cfrac%7Bh_i%5E2%7D%7B3%7D&plus;B_ih_i%5E2&plus;C_ih_i&plus;y_i%3Dy_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D%20%5C%5C%20%26%20%28B_%7Bi&plus;1%7D-B_i%29h_i&plus;2B_ih_i&plus;C_i%3DC_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-2%7D%20%5C%5C%20%26%20B_0%3D0%20%5C%5C%20%26%20B_n%3D0%20%5Cend%7Bcases%7D)<br>
 Express *C* through *B*:<br>
 ![equation](https://latex.codecogs.com/gif.latex?C_i%3D%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bh_i%7D-%28B_%7Bi&plus;1%7D&plus;2B_i%29%5Cfrac%7Bh_i%7D%7B3%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D)<br>
