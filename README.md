@@ -171,24 +171,46 @@ python3 jacobi.py
 Comparison of the speed of the self-writing function and the library function:<br>
 ![](images/jacobi.png)
 
-## H3: Linear interpolation, splines and Lagrange
-Every directory contains own *train.dat*, *train.ans* and *test.dat* files. Scripts generate the 4-th *test.ans* file. <br><br>
-**Note**: every script can demonstrate you the result if you want. Use `-p` flag to see the plot. *Test points* are the x values (*test.dat* file) and the y values calculated for them (*test.ans* file).<br><br>
-Examples:
+## H3: Interpolation and approximation
+**Problem**: Given a grid of order n (*train.dat* file):<br>
+![equation](https://latex.codecogs.com/gif.latex?x_0%3Cx_1%3C%5Cldots%3Cx_n)<br>
+Given a set of measurements (*train.ans* file):<br>
+![equation](https://latex.codecogs.com/gif.latex?y_i%3Df%28x_i%29)<br>
+It is necessary to restore the value of function ![equation](https://latex.codecogs.com/gif.latex?f) in another set of points ![equation](https://latex.codecogs.com/gif.latex?z_0%3Cz_1%3C%5Cldots%3Cz_m) (*test.dat* file) and save it to *test.ans* file.<br>
+**Note**: every script can demonstrate you the result if you want. Use `-p` flag to see the plot. *Test points* are the *x* values (*test.dat* file) and the *y* values calculated for them (*test.ans* file).<br>
+### Solution 1: linear interpolation
+**Idea**:<br>![equation](https://latex.codecogs.com/gif.latex?f%28x%29%20%3D%20%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bx_%7Bi&plus;1%7D-x_i%7D%28x-x_i%29&plus;y_i%2C%5C%3Bx%5Cin%5Bx_i%3Bx_%7Bi&plus;1%7D%29)<br>
+**Running**:
 ```
 python3 linear.py -p
 ```
+**Result**:<br>
 ![](images/linear.png)
+### Solution 2: Lagrange polynomial
+**Idea**:<br>
+Build ![equation](https://latex.codecogs.com/gif.latex?P%28x%29) — the nth degree polynomial that will pass through the given points ![equation](https://latex.codecogs.com/gif.latex?%28x_i%2Cy_i%29).<br>
+Decompose on the basis of polynomial ![equation](https://latex.codecogs.com/gif.latex?%5Cvarphi_i%28x%29):<br>
+![equation](https://latex.codecogs.com/gif.latex?P%28x%29%3D%5Csum%5Climits_%7Bi%3D0%7D%5Eny_i%5Cvarphi_i%28x%29)<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cvarphi_i%28x%29%3D%5Cfrac%7B%5Cprod_%7Bj%5Cneq%20i%7D%28x-x_j%29%7D%7B%5Cprod_%7Bj%5Cneq%20i%7D%28x_i-x_j%29%7D)<br>
+**Running**:
 ```
 python3 lagrange.py -p
 ```
+**Result**:<br>
 ![](images/lagrange.png)
+### Solution 3: spline interpolation
+**Idea**:<br>
+![equation](https://latex.codecogs.com/gif.latex?P_i%28x%29%3DA_i*%28x-x_i%29%5E3&plus;B_i*%28x-x_i%29%5E2&plus;C_i*%28x-x_i%29&plus;D_i%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D)<br>
+The vector of coefficients *B* is obtained from the solution of the system of equations *As = f* by the sweep method, and the remaining vectors of coefficients are obtained by the formulas:<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20B_i%3Ds_i%20%5C%5C%20%26%20A_i%3D%5Cfrac%7BB_%7Bi&plus;1%7D-B_i%7D%7B3h%7D%20%5C%5C%20%26%20C_i%3D%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bh%7D-%28B_%7Bi&plus;1%7D&plus;2B_i%29%5Cfrac%7Bh%7D%7B3%7D%20%5C%5C%20%26%20D_i%3Dy_i%20%5Cend%7Bcases%7D)<br>
+**Running**:
 ```
 python3 spline.py -p
 ```
+**Result**:<br>
 ![](images/spline.png)
-#### <span style="color:red">Bonus task</span>: grid splines
-Run it and click on the window to see splines:
+### Super bonus task: grid splines
+This is a two-dimensional spline interpolation using PyQt. Run it and click on the window to see splines:
 ```
 python3 spline_map.py
 ```
