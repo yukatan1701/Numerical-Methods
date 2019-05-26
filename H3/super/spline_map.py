@@ -126,6 +126,9 @@ class Window(QMainWindow):
 
 n = 500
 if __name__ == '__main__':
+	if len(sys.argv) > 2:
+		if sys.argv[1] == '-d':
+			density = int(sys.argv[2])
 	app = QApplication(sys.argv)
 	window = Window()
 	window.show()

@@ -96,7 +96,7 @@ Comparison of the speed of the self-writing function and the library function:<b
 ## H2: Iterative methods for solving a system of linear equations
 **Problem**: using iterative solution methods, solve a system of linear equations.<br>
 **Note**: all scripts generate matrices with random values and draw graphs of time versus size automatically.<br><br>
-The canonical form of the approximate solution of equation ![equation](https://latex.codecogs.com/gif.latex?Ax%3Df):<br>
+The canonical form of the approximate solution of equation ![equation](https://latex.codecogs.com/gif.latex?%5Cinline%20Ax%3Df):<br>
 ![equation](https://latex.codecogs.com/gif.latex?B%5Cfrac%7Bx%5E%7Bk&plus;1%7D-x%5Ek%7D%7B%5Ctau%7D&plus;Ax%5Ek%3Df)<br>
 where ![equation](https://latex.codecogs.com/gif.latex?B) is a non-degenerate method dependent matrix, ![equation](https://latex.codecogs.com/gif.latex?%5Ctau) is an iteration parameter. Choosing arbitrarily these quantities, we obtain different methods of solution. ![equation](https://latex.codecogs.com/gif.latex?x%5Ek) converges to a solution.<br>
 Let ![equation](https://latex.codecogs.com/gif.latex?A%3DL&plus;D&plus;U), where ![equation](https://latex.codecogs.com/gif.latex?L) is a strictly lower triangular matrix, ![equation](https://latex.codecogs.com/gif.latex?D) is diagonal, ![equation](https://latex.codecogs.com/gif.latex?U) is strictly upper triangular.
@@ -176,7 +176,7 @@ Comparison of the speed of the self-writing function and the library function:<b
 ![equation](https://latex.codecogs.com/gif.latex?x_0%3Cx_1%3C%5Cldots%3Cx_n)<br>
 Given a set of measurements (*train.ans* file):<br>
 ![equation](https://latex.codecogs.com/gif.latex?y_i%3Df%28x_i%29)<br>
-It is necessary to restore the value of function ![equation](https://latex.codecogs.com/gif.latex?f) in another set of points ![equation](https://latex.codecogs.com/gif.latex?z_0%3Cz_1%3C%5Cldots%3Cz_m) (*test.dat* file) and save it to *test.ans* file.<br>
+It is necessary to restore the value of function ![equation](https://latex.codecogs.com/gif.latex?%5Cinline%20f) in another set of points ![equation](https://latex.codecogs.com/gif.latex?%5Cinline%20z_0%3Cz_1%3C%5Cldots%3Cz_m) (*test.dat* file) and save it to *test.ans* file.<br>
 **Note**: every script can demonstrate you the result if you want. Use `-p` flag to see the plot. *Test points* are the *x* values (*test.dat* file) and the *y* values calculated for them (*test.ans* file).<br>
 ### Solution 1: linear interpolation
 **Idea**:<br>![equation](https://latex.codecogs.com/gif.latex?f%28x%29%20%3D%20%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bx_%7Bi&plus;1%7D-x_i%7D%28x-x_i%29&plus;y_i%2C%5C%3Bx%5Cin%5Bx_i%3Bx_%7Bi&plus;1%7D%29)<br>
@@ -198,7 +198,7 @@ python3 lagrange.py -p
 ```
 **Result**:<br>
 ![](images/lagrange.png)
-### Solution 3: spline interpolation
+### Solution 3: spline interpolation (regular grid)
 **Idea**:<br>
 ![equation](https://latex.codecogs.com/gif.latex?P_i%28x%29%3DA_i*%28x-x_i%29%5E3&plus;B_i*%28x-x_i%29%5E2&plus;C_i*%28x-x_i%29&plus;D_i%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D)<br>
 The vector of coefficients *B* is obtained from the solution of the system of equations *As = f* by the sweep method, and the remaining vectors of coefficients are obtained by the formulas:<br>
@@ -209,8 +209,45 @@ python3 spline.py -p
 ```
 **Result**:<br>
 ![](images/spline.png)
-### Super bonus task: grid splines
-This is a two-dimensional spline interpolation using PyQt. Run it and click on the window to see splines:
+### Bonus task: spline interpolation (irregular grid)
+**Idea**: similar to the previous task, but with modified formulas.<br>
+![equation](https://latex.codecogs.com/gif.latex?P_i%28x%29%3DA_i%28x-x_i%29%5E3&plus;B_i%28x-x_i%29%5E2&plus;C_i%28x-x_i%29&plus;D_i%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D)<br>
+Let's enter the notation:<br>
+![equation](https://latex.codecogs.com/gif.latex?x_%7Bi&plus;1%7D-x_i%3Dh_i)<br>
+Continuity conditions:<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20P_i%28x_i%29%3Dy_i%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D%20%5C%5C%20%26%20P_i%28x_%7Bi&plus;1%7D%29%3Dy_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B1%2Cn%7D%20%5C%5C%20%26%20P_i%27%28x_%7Bi&plus;1%7D%29%3DP_%7Bi&plus;1%7D%27%28x_%7Bi&plus;1%7D%29%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-2%7D%20%5C%5C%20%26%20P_i%27%27%28x_%7Bi&plus;1%7D%29%3DP_%7Bi&plus;1%7D%27%27%28x_%7Bi&plus;1%7D%29%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-2%7D%20%5C%5C%20%26%20P_0%27%27%28x_0%29%3D0%2CP_%7Bn-1%7D%27%27%28x_n%29%3D0%20%5Cend%7Bcases%7D)<br>
+After substitution:<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20D_i%3Dy_i%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D%20%5C%5C%20%26%20A_ih_i%5E3&plus;B_ih_i%5E2&plus;C_ih_i&plus;y_i%3Dy_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D%20%5C%5C%20%26%203A_ih_i%5E2&plus;2B_ih_i&plus;C_i%3DC_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-2%7D%20%5C%5C%20%26%206A_ih_i&plus;2B_i%3D2B_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-2%7D%20%5C%5C%20%26%202B_0%3D0%20%5C%5C%20%26%206A_%7Bn-1%7Dh_%7Bn-1%7D&plus;2B_%7Bn-1%7D%3D0%20%5Cend%7Bcases%7D)<br>
+Add a dummy element:<br>
+![equation](https://latex.codecogs.com/gif.latex?B_n%3D0)<br>
+Express *A* through *B*:<br>
+![equation](https://latex.codecogs.com/gif.latex?A_i%3D%5Cfrac%7BB_%7Bi&plus;1%7D-B_%7Bi%7D%7D%7B3h_i%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D)<br>
+Substitute *A* in the remaining equations:
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20%28B_%7Bi&plus;1%7D-B_i%29%5Cfrac%7Bh_i%5E2%7D%7B3%7D&plus;B_ih_i%5E2&plus;C_ih_i&plus;y_i%3Dy_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D%20%5C%5C%20%26%20%28B_%7Bi&plus;1%7D-B_i%29h_i&plus;2B_ih_i&plus;C_i%3DC_%7Bi&plus;1%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-2%7D%20%5C%5C%20%26%20B_0%3D0%20%5C%5C%20%26%20B_n%3D0%20%5Cend%7Bcases%7D)<br>
+Express *C* through *B*:<br>
+![equation](https://latex.codecogs.com/gif.latex?C_i%3D%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bh_i%7D-%28B_%7Bi&plus;1%7D&plus;2B_i%29%5Cfrac%7Bh_i%7D%7B3%7D%2C%5C%3Bi%3D%5Coverline%7B0%2Cn-1%7D)<br>
+Substitute and get a closed system for *B*:<br>
+![equation](https://latex.codecogs.com/gif.latex?B_ih_i&plus;2B_%7Bi&plus;1%7D%28h_i&plus;h_%7Bi&plus;1%7D%29&plus;B_%7Bi&plus;2%7Dh_%7Bi&plus;1%7D%3D3%5Cleft%20%28%5Cfrac%7By_%7Bi&plus;2%7D-y_%7Bi&plus;1%7D%7D%7Bh_%7Bi&plus;1%7D%7D-%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bh_i%7D%20%5Cright%20%29)<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20B_0%3DB_n%3D0%20%5C%5C%20%26%20B_%7Bi-1%7Dh_%7Bi-1%7D&plus;2B_%7Bi%7D%28h_%7Bi-1%7D&plus;h_%7Bi%7D%29&plus;B_%7Bi&plus;1%7Dh_%7Bi%7D%3D3%5Cleft%20%28%5Cfrac%7By_%7Bi&plus;1%7D-y_%7Bi%7D%7D%7Bh_%7Bi%7D%7D-%5Cfrac%7By_%7Bi%7D-y_%7Bi-1%7D%7D%7Bh_%7Bi-1%7D%7D%20%5Cright%20%29%2C%5C%3Bi%3D%5Coverline%7B1%2Cn-1%7D%20%5Cend%7Bcases%7D)<br>
+It is reduced to a system of linear equations of order *n + 1* with a three-diagonal matrix:
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bpmatrix%7D%20b_0%20%26%200%20%26%200%20%26%200%20%26%20%5Cldots%20%26%200%20%26%200%20%26%200%20%5C%5C%20a_1%20%26%20b_1%20%26%20c_1%20%26%200%20%26%20%5Cldots%20%26%200%20%26%200%20%26%200%20%5C%5C%200%20%26%20a_2%20%26%20b_2%20%26%20c_2%20%26%20%5Cldots%20%26%200%20%26%200%20%26%200%20%5C%5C%200%20%26%200%20%26%20a_3%20%26%20b_3%20%26%20%5Cldots%20%26%200%20%26%200%20%26%200%20%5C%5C%20%5Cvdots%20%26%20%5Cvdots%20%26%20%5Cvdots%20%26%20%5Cvdots%20%26%20%5Cddots%20%26%20%5Cvdots%20%26%20%5Cvdots%20%26%20%5Cvdots%20%5C%5C%200%20%26%200%20%26%200%20%26%200%20%26%20%5Cldots%20%26%20b_%7Bn-2%7D%20%26%20c_%7Bn-2%7D%20%26%200%20%5C%5C%200%20%26%200%20%26%200%20%26%200%20%26%20%5Cldots%20%26%20a_%7Bn-1%7D%20%26%20b_%7Bn-1%7D%20%26%20c_%7Bn-1%7D%20%5C%5C%200%20%26%200%20%26%200%20%26%200%20%26%20%5Cldots%20%26%200%20%26%200%20%26%20b_n%20%5Cend%7Bpmatrix%7D%20%5Cbegin%7Bpmatrix%7D%20B_0%5C%5C%20B_1%5C%5C%20B_2%5C%5C%20B_3%5C%5C%20%5Cvdots%5C%5C%20B_%7Bn-2%7D%5C%5C%20B_%7Bn-1%7D%5C%5C%20B_n%20%5Cend%7Bpmatrix%7D%3D%5Cbegin%7Bpmatrix%7D%200%5C%5C%203y_%7Bxx%2C1%7D%5C%5C%203y_%7Bxx%2C2%7D%5C%5C%203y_%7Bxx%2C3%7D%5C%5C%20%5Cvdots%5C%5C%203y_%7Bxx%2Cn-2%7D%5C%5C%203y_%7Bxx%2Cn-1%7D%5C%5C%200%20%5Cend%7Bpmatrix%7D)<br>
+where<br>
+![equation](https://latex.codecogs.com/gif.latex?y_%7Bxx%2Ci%7D%3D%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bh_i%7D-%5Cfrac%7By_i-y_%7Bi-1%7D%7D%7Bh_%7Bi-1%7D%7D)<br>
+Diagonals:<br>
+![equation](https://latex.codecogs.com/gif.latex?c_i%3D%280%2C%5C%3Bh_0%2C%5C%3Bh_1%2C%5C%3B%5Cldots%2C%5C%3Bh_%7Bn-2%7D%2C%5C%3B0%29)<br>
+![equation](https://latex.codecogs.com/gif.latex?b_i%3D%281%2C%5C%3B2%28h_0&plus;h_1%29%2C%5C%3B2%28h_1&plus;h_2%29%2C%5C%3B%5Cldots%2C%5C%3B2%28h_%7Bn-2%7D&plus;%20h_%7Bh-1%7D%29%2C%5C%3B1%29)<br>
+![equation](https://latex.codecogs.com/gif.latex?c_i%3D%280%2C%5C%3Bh_1%2C%5C%3Bh_2%2C%5C%3B%5Cldots%2C%5C%3Bh_%7Bn-1%7D%2C%5C%3B0%29)<br>
+![equation](https://latex.codecogs.com/gif.latex?f%3D3%5Ccdot%280%2C%5C%3By_%7Bxx%2C1%7D%2C%5C%3By_%7Bxx%2C2%7D%2C%5C%3By_%7Bxx%2C3%7D%2C%5C%3B%5Cldots%2C%5C%3By_%7Bxx%2Cn-2%7D%2C%5C%3By_%7Bxx%2Cn-1%7D%2C%5C%3B0%29)<br>
+Solve system *As = f* by the sweep method and obtain the vector of coefficients *B*. The remaining coefficients are determined by the formulas:<br>
+![equation](https://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%20B_i%3Ds_i%20%5C%5C%20%26%20A_i%3D%5Cfrac%7BB_%7Bi&plus;1%7D-B_i%7D%7B3h_i%7D%20%5C%5C%20%26%20C_i%3D%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bh_i%7D-%28B_%7Bi&plus;1%7D&plus;2B_i%29%5Cfrac%7Bh_i%7D%7B3%7D%20%5C%5C%20%26%20D_i%3Dy_i%20%5Cend%7Bcases%7D)<br>
+**Running**:
+```
+python3 irregular-spline.py -p
+```
+**Result**:<br>
+![](images/irregular-spline.png)
+### Super bonus task: 2D splines
+This is a two-dimensional spline interpolation using PyQt. Use `-p` flag to set line density (default value is 100). Run it and click on the window to see splines:
 ```
 python3 spline_map.py
 ```
