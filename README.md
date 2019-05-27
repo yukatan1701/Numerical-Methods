@@ -234,7 +234,7 @@ It is reduced to a system of linear equations of order *n + 1* with a three-diag
 where<br>
 ![equation](https://latex.codecogs.com/gif.latex?y_%7Bxx%2Ci%7D%3D%5Cfrac%7By_%7Bi&plus;1%7D-y_i%7D%7Bh_i%7D-%5Cfrac%7By_i-y_%7Bi-1%7D%7D%7Bh_%7Bi-1%7D%7D)<br>
 Diagonals:<br>
-![equation](https://latex.codecogs.com/gif.latex?c_i%3D%280%2C%5C%3Bh_0%2C%5C%3Bh_1%2C%5C%3B%5Cldots%2C%5C%3Bh_%7Bn-2%7D%2C%5C%3B0%29)<br>
+![equation](https://latex.codecogs.com/gif.latex?a_i%3D%280%2C%5C%3Bh_0%2C%5C%3Bh_1%2C%5C%3B%5Cldots%2C%5C%3Bh_%7Bn-2%7D%2C%5C%3B0%29)<br>
 ![equation](https://latex.codecogs.com/gif.latex?b_i%3D%281%2C%5C%3B2%28h_0&plus;h_1%29%2C%5C%3B2%28h_1&plus;h_2%29%2C%5C%3B%5Cldots%2C%5C%3B2%28h_%7Bn-2%7D&plus;%20h_%7Bh-1%7D%29%2C%5C%3B1%29)<br>
 ![equation](https://latex.codecogs.com/gif.latex?c_i%3D%280%2C%5C%3Bh_1%2C%5C%3Bh_2%2C%5C%3B%5Cldots%2C%5C%3Bh_%7Bn-1%7D%2C%5C%3B0%29)<br>
 ![equation](https://latex.codecogs.com/gif.latex?f%3D3%5Ccdot%280%2C%5C%3By_%7Bxx%2C1%7D%2C%5C%3By_%7Bxx%2C2%7D%2C%5C%3By_%7Bxx%2C3%7D%2C%5C%3B%5Cldots%2C%5C%3By_%7Bxx%2Cn-2%7D%2C%5C%3By_%7Bxx%2Cn-1%7D%2C%5C%3B0%29)<br>
