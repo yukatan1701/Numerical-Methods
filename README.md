@@ -247,7 +247,7 @@ python3 irregular-spline.py -p
 **Result**:<br>
 ![](images/irregular-spline.png)
 ### Super bonus task: 2D splines
-This is a two-dimensional spline interpolation using PyQt. Use `-p` flag to set line density (default value is 100). Run it and click on the window to see splines:
+This is a two-dimensional spline interpolation using PyQt. Use `-d` flag to set line density (default value is 100). Run it and click on the window to see splines:
 ```
 python3 spline_map.py
 ```
