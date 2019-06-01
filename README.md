@@ -13,16 +13,16 @@ Gaussian elimination is performed in two steps: a forward elimination and a back
 def gauss(A, f):
     for k in range(n):
         A[k, k + 1:] /= A[k, k]
-        f[k] /= A[k][k]
+        f[k] /= A[k, k]
         for i in range(k + 1, n):
-            A[i, k + 1:] -= A[i][k] * A[k, k + 1:]
-            f[i] -= A[i][k] * f[k]
+            A[i, k + 1:] -= A[i, k] * A[k, k + 1:]
+            f[i] -= A[i, k] * f[k]
         A[k + 1:, k] = np.zeros(n - k - 1)
     x = np.zeros(n)
     for i in range(n - 1, -1, -1):
         x[i] = f[i]
         for j in range(i + 1, n):
-            x[i] -= A[i][j] * x[j]
+            x[i] -= A[i, j] * x[j]
     return x
 ```
 Running:
@@ -111,10 +111,10 @@ def seidel(a, f, x):
     for i in range(n):
         s = 0
         for j in range(i - 1):
-            s = s + a[i][j] * xnew[j]
+            s = s + a[i, j] * xnew[j]
         for j in range(i + 1, n):
-            s = s + a[i][j] * x[j]
-        xnew[i] = (f[i] - s) / a[i][i]
+            s = s + a[i, j] * x[j]
+        xnew[i] = (f[i] - s) / a[i, i]
     return xnew
 
 # choose suitable answer
@@ -147,10 +147,10 @@ def jacobi(a, f, x):
     for i in range(n):
         s = 0
         for j in range(i - 1):
-            s = s + a[i][j] * x[j]
+            s = s + a[i, j] * x[j]
         for j in range(i + 1, n):
-            s = s + a[i][j] * x[j]
-        xnew[i] = (f[i] - s) / a[i][i]
+            s = s + a[i, j] * x[j]
+        xnew[i] = (f[i] - s) / a[i, i]
     return xnew
 
 # choose suitable answer
